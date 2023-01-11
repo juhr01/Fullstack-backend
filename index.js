@@ -1,0 +1,7 @@
+const { response } = require('express')
+const express = require('express')
+const nodemon = require('nodemon')
+const cors = require('cors')
+const app = express()
+app.use(express.json())
+app.use(cors())
