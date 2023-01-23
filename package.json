@@ -20,6 +20,7 @@
   "homepage": "https://github.com/juhr01/Fullstack-backend#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mongoose": "^6.8.4",
     "morgan": "^1.10.0"

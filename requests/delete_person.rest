@@ -1,1 +1,2 @@
-DELETE http://localhost:3001/api/persons/1
+DELETE http://localhost:3001/api/persons/63ce6484de0f1de3fb7a294d
+Content-Type: application/json
