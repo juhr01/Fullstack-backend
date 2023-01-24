@@ -15,11 +15,11 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms :b
 
 const PORT = process.env.PORT || 3001
 
-/* app.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
-}) */
+})
 
-const connectDB = async () => {
+/* const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGO_URI);
     console.log(`MongoDB Connected: ${conn.connection.host}`);
@@ -33,7 +33,7 @@ connectDB().then(() => {
   app.listen(PORT, () => {
       console.log("listening for requests");
   })
-})
+}) */
 
 /* let persons = [
     {
@@ -59,22 +59,22 @@ connectDB().then(() => {
 ] */
 
 app.get('/info', (request, response) => {
-    const date = new Date()
-    Person.find({}).then(persons => {
-      persons.map(person => person.toJSON())
-      response.send(`<p>Phonebook has info for ${persons.length} people</p>` + '</n>' + date)
-    })
+  const date = new Date()
+  Person.find({}).then(persons => {
+    persons.map(person => person.toJSON())
+    response.send(`<p>Phonebook has info for ${persons.length} people</p>` + '</n>' + date)
+  })
 })
 
 app.get('/api/persons', (request, response) => {
   Person.find({}).then(persons => {
     response.json(persons)
   })
-    /* if (persons) {
-        response.json(persons)
-    } else {
-        response.status(404).end()
-    } */
+  /* if (persons) {
+      response.json(persons)
+  } else {
+      response.status(404).end()
+  } */
 })
 
 app.get('/api/persons/:id', (request, response) => {
@@ -84,24 +84,24 @@ app.get('/api/persons/:id', (request, response) => {
     } else {
       response.status(404).end()
     }
-    
-  })  
-    /* const id = Number(request.params.id)
-    console.log(id)
-    const person = persons.find(person => person.id === id)
-    console.log(person)
-    if (person) {
-        response.json(person)
-    } else {
-        response.status(404).end()
-    } */
+
+  })
+  /* const id = Number(request.params.id)
+  console.log(id)
+  const person = persons.find(person => person.id === id)
+  console.log(person)
+  if (person) {
+      response.json(person)
+  } else {
+      response.status(404).end()
+  } */
 })
 
- app.delete('/api/persons/:id', (request, response) => {
+app.delete('/api/persons/:id', (request, response) => {
   Person.findByIdAndRemove(request.params.id)
-  .then(result => {
-    response.status(204).end()
-  })
+    .then(result => {
+      response.status(204).end()
+    })
 })
 
 /* const generateId = () => {
@@ -131,9 +131,9 @@ app.post('/api/persons', (request, response, next) => {
     number: body.number
   });
 
-  person.save().then(savedPerson => {response.json(savedPerson)})
-   /*  .then(savedPerson => savedPerson.toJSON())
-    .then(savedAndFormattedPerson => {
-      response.json(savedAndFormattedPerson);
-    }) */
+  person.save().then(savedPerson => { response.json(savedPerson) })
+  /*  .then(savedPerson => savedPerson.toJSON())
+   .then(savedAndFormattedPerson => {
+     response.json(savedAndFormattedPerson);
+   }) */
 })
