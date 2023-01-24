@@ -68,7 +68,7 @@ app.get('/info', (request, response) => {
 
 app.get('/api/persons', (request, response) => {
   Person.find({}).then(persons => {
-    response.json(persons)
+    response.json(persons.map(person => person.toJSON()))
   })
   /* if (persons) {
       response.json(persons)
@@ -80,7 +80,7 @@ app.get('/api/persons', (request, response) => {
 app.get('/api/persons/:id', (request, response) => {
   Person.findById(request.params.id).then(person => {
     if (person) {
-      response.json(person)
+      response.json(person.toJSON())
     } else {
       response.status(404).end()
     }
@@ -131,7 +131,7 @@ app.post('/api/persons', (request, response, next) => {
     number: body.number
   });
 
-  person.save().then(savedPerson => { response.json(savedPerson) })
+  person.save().then(savedPerson => { response.json(savedPerson.toJSON()) })
   /*  .then(savedPerson => savedPerson.toJSON())
    .then(savedAndFormattedPerson => {
      response.json(savedAndFormattedPerson);
