@@ -13,6 +13,28 @@ morgan.token('body', (req, res) => JSON.stringify(req.body));
 
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
+const PORT = process.env.PORT || 3001
+
+/* app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
+}) */
+
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URI);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+}
+
+connectDB().then(() => {
+  app.listen(PORT, () => {
+      console.log("listening for requests");
+  })
+})
+
 /* let persons = [
     {
         id: 1,
@@ -114,9 +136,4 @@ app.post('/api/persons', (request, response, next) => {
     .then(savedAndFormattedPerson => {
       response.json(savedAndFormattedPerson);
     }) */
-})
-
-const PORT = process.env.PORT || 3001
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
 })
