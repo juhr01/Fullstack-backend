@@ -36,10 +36,6 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms :b
     }
 ] */
 
-app.get('/', (req, res) => {
-    res.send('<h1>Hello World!</h1>')
-})
-
 app.get('/info', (request, response) => {
     const date = new Date()
     Person.find({}).then(persons => {
@@ -48,9 +44,25 @@ app.get('/info', (request, response) => {
     })
 })
 
+app.get('/api/persons', (request, response) => {
+  Person.find({}).then(persons => {
+    response.json(persons)
+  })
+    /* if (persons) {
+        response.json(persons)
+    } else {
+        response.status(404).end()
+    } */
+})
+
 app.get('/api/persons/:id', (request, response) => {
   Person.findById(request.params.id).then(person => {
-    response.json(person.toJSON())
+    if (person) {
+      response.json(person)
+    } else {
+      response.status(404).end()
+    }
+    
   })  
     /* const id = Number(request.params.id)
     console.log(id)
@@ -58,17 +70,6 @@ app.get('/api/persons/:id', (request, response) => {
     console.log(person)
     if (person) {
         response.json(person)
-    } else {
-        response.status(404).end()
-    } */
-})
-
-app.get('/api/persons', (request, response) => {
-  Person.find({}).then(persons => {
-    response.json(persons)
-  })
-    /* if (persons) {
-        response.json(persons)
     } else {
         response.status(404).end()
     } */
@@ -108,17 +109,11 @@ app.post('/api/persons', (request, response, next) => {
     number: body.number
   });
 
-  person
-    .save()
-    .then(savedNote => savedNote.toJSON())
+  person.save().then(savedPerson => {response.json(savedPerson)})
+   /*  .then(savedPerson => savedPerson.toJSON())
     .then(savedAndFormattedPerson => {
       response.json(savedAndFormattedPerson);
-    })
-    .catch(error => {
-      return response.status(400).json({
-        error: "name already in phonebook"
-      });
-    });
+    }) */
 })
 
 const PORT = process.env.PORT || 3001
