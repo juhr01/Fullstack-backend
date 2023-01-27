@@ -150,6 +150,7 @@ app.post('/api/persons', (request, response, next) => {
 })
 
 app.put('/api/persons/:id'), (request, response, next) => {
+  console.log(request)
   const body = request.body
 
   const person = {
@@ -165,6 +166,7 @@ app.put('/api/persons/:id'), (request, response, next) => {
 }
 
 const unknownEndpoint = (request, response) => {
+  console.log(response)
   response.status(404).send({
     error: "unknown endpoint"
   });
