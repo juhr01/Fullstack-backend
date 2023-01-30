@@ -125,13 +125,10 @@ app.post('/api/persons', (request, response, next) => {
   const person = new Person({
     name: body.name,
     number: body.number
-  });
+  })
 
   person.save().then(savedPerson => { response.json(savedPerson) })
-  /*  .then(savedPerson => savedPerson.toJSON())
-   .then(savedAndFormattedPerson => {
-     response.json(savedAndFormattedPerson);
-   }) */
+  .catch(error => next(error))
 })
 
 app.put('/api/persons/:id'), (request, response, next) => {
