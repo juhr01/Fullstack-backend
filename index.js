@@ -29,22 +29,6 @@ const requestLogger = (request, response, next) => {
 
 app.use(requestLogger)
 
-/* const connectDB = async () => {
-  try {
-    const conn = await mongoose.connect(process.env.MONGO_URI);
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
-  } catch (error) {
-    console.log(error);
-    process.exit(1);
-  }
-}
-
-connectDB().then(() => {
-  app.listen(PORT, () => {
-      console.log("listening for requests");
-  })
-}) */
-
 /* let persons = [
     {
         id: 1,
@@ -125,7 +109,7 @@ app.delete('/api/persons/:id', (request, response, next) => {
 app.post('/api/persons', (request, response, next) => {
   const body = request.body
 
-  if (body.name === undefined) {
+/*   if (body.name === undefined) {
     return response.status(400).json({
       error: "name missing"
     });
@@ -136,6 +120,7 @@ app.post('/api/persons', (request, response, next) => {
       error: "number missing"
     });
   }
+ */
 
   const person = new Person({
     name: body.name,
